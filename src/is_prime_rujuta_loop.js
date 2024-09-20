@@ -2,7 +2,7 @@
 // integer n and prints if each integer is prime. If it is not prime,
 // it prints the smallest factor.
 
-var n = 2;
+  var n = 11;
 
 while (n <= 50)
 {

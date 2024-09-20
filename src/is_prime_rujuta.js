@@ -2,7 +2,7 @@
 // determines whether it is prime or composite.
 // I created an algorithm to solve this problem using a flow chart.
 
-var n = 1007;
+var n = 5777;
 var i = 2;
 
 while (((n % i) != 0) && (i * i <= n))

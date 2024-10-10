@@ -1,5 +1,6 @@
 // Implement https://github.com/ruju11235/csp/issues/7
 
+// This function takes a list and prints its elements in reverse order.
 function print_list(ds)
 {
     var i = ds.length - 1;
@@ -10,6 +11,7 @@ function print_list(ds)
     }
 }
 
+// This function prints the digits of a given positive integer.
 function print_digits(a)
 {
     var ds = [];
@@ -20,8 +22,8 @@ function print_digits(a)
         a = Math.floor(a / 10);
         i = i + 1;
     }
-    console.log(a);
+    ds[i] = a;
     print_list(ds);
 }
 
-print_digits(9);
+print_digits(1784);

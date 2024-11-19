@@ -1,7 +1,6 @@
 // Implement https://github.com/ruju11235/csp/issues/3
 // This program implements the "power" function.
 
-
 // This recursive function takes two numbers:
 // b, a non-zero real number, and e, an integer and returns a 
 // real number equal to b raised to the eth power.

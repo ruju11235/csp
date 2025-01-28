@@ -1,17 +1,21 @@
 // This program creates a histogram that counts the number of times
-// of each letter ("a" to "z") in a given string "s".
+// of each letter in a given string "s" that contains only
+// lower-case ASCII characters ("a" to "z").
 
 // The "histogram" function takes a string "s" as an input and
 // returns an array that tells the number of time each letter
 // from "a" to "z".
-function histogram(s)
+function histogram1(s)
 {
+    s = s.toLowerCase();
     let letters = [];
     for (let i = 0; i < s.length; i++)
     {
         var char = s[i];
+        if (char) {
+            
+        }
         var index = char.charCodeAt() - "a".charCodeAt();
-        // Initializes index to 0 if undefined, then increment
         if (!letters[index])
         {
             letters[index] = 0;
@@ -31,5 +35,19 @@ function histogram(s)
     return letters;
 }
 
-var s = "hellooooo";
-console.log(histogram(s));
+function histogram2(s)
+{
+    let freq = {};
+    for (let i = 0; i < s.length; i++) {
+        if (!freq[s[i]]) {
+            freq[s[i]] = 1;
+        }
+        else {
+            freq[s[i]] += 1;
+        }
+    }
+    return freq;
+}
+
+var s = "The quick brown fox jumps over the lazy dog";
+console.log(histogram1(s));

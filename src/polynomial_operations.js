@@ -13,7 +13,19 @@ function deg(cs)
 // 
 function add(cs, ds)
 {
+    let max = Math.max(cs.length, ds.length);
+    let min = Math.min(cs.length, ds.length);
     let sum = [];
+    for (let i = 0; i < min; i++)
+    {
+        sum.push(cs[i] + ds[i]);
+    }
+    let sa = cs.length > ds.length ? cs : ds;
+    for (let i = min; i < max; i++)
+    {
+        sum.push(sa[i]);
+    }
+    return sum;
 }
 
 // 
@@ -64,6 +76,7 @@ function divide(A, B)
 }
 
 let mr = [7, -1, 2, 4];
-let md = [-3, 0, 2];
-console.log(multiply(mr, md));
-console.log(divide(mr, md)); // Returns [quotient, remainder (R)]
+let md = [3, 0, 8];
+// console.log(multiply(mr, md));
+// console.log(divide(mr, md)); // Returns [quotient, remainder (R)]
+console.log(add(mr, md));

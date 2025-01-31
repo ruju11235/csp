@@ -1,5 +1,8 @@
 /*
-
+This program has a set of functions to perform basic polynomial arithmetic operations.
+Each polynomial is represented as an array of coefficients,
+where the index corresponds to the power of the variable.
+There are functions for calculating the degree of a polynomial, addition, subtraction, multiplication, and division of polynomials.
 */
 
 // Calculates the degree of a polynomial.
@@ -10,7 +13,11 @@ function deg(cs)
     return cs.length - 1;
 }
 
-// 
+// This function adds two arrays (polynomials): cs, and ds.
+// It returns a new array containing the element-wise sum of the two inputs.
+// It iterates through both arrays, adding corresponding elements together.
+// If the arrays have different lengths, the remaining elements
+// from the longer array are appended to the result array unchanged.
 function add(cs, ds)
 {
     let max = Math.max(cs.length, ds.length);
@@ -28,10 +35,29 @@ function add(cs, ds)
     return sum;
 }
 
-// 
+// This function subtracts two arrays (polynomials): cs, and ds.
+// It returns a new array containing the element-wise difference of the two inputs.
+// It iterates through both arrays, subtracting corresponding elements together.
+// If the arrays have different lengths, the extra elements
+// from the longer array are appended to the result array.
+// However, if the second array (ds) is longer,
+// its extra elements are negated before being pushed to the result array.
 function subtract(cs, ds)
 {
+    let max = Math.max(cs.length, ds.length);
+    let min = Math.min(cs.length, ds.length);
     let difference = [];
+    for (let i = 0; i < min; i++)
+    {
+        difference.push(cs[i] - ds[i]);
+    }
+    let sa = cs.length > ds.length ? cs : ds;
+    let sign = cs.length >= ds.length ? 1 : -1;
+    for (let i = min; i < max; i++)
+    {
+        difference.push(sa[i] * sign);
+    }
+    return difference;
 }
 
 // This function multiplies two polynomials.
@@ -76,7 +102,8 @@ function divide(A, B)
 }
 
 let mr = [7, -1, 2, 4];
-let md = [3, 0, 8];
-// console.log(multiply(mr, md));
-// console.log(divide(mr, md)); // Returns [quotient, remainder (R)]
+let md = [3, 0, 8, 0, 5];
 console.log(add(mr, md));
+console.log(subtract(mr, md));
+console.log(multiply(mr, md));
+console.log(divide(mr, md)); // Returns [quotient, remainder (R)]

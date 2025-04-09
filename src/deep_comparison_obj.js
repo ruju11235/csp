@@ -1,8 +1,11 @@
 /*
-
+Performs a deep comparison between two values.
+It checks if the values are strictly equal,
+or if they are objects with the same keys and deeply equal values.
+It is a recursive function. It returns true
+if the two inputs are deeply equal, and false otherwise.
 */
 
-// 
 function deepEqual(a, b)
 {
     if (a === b)

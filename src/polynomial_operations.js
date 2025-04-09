@@ -83,7 +83,15 @@ function multiply(mr, md)
     return pr;
 }
 
-// 
+// This function performs polynomial long division.
+// A: An array of coefficients representing the dividend polynomial.
+// B: An array of coefficients representing the divisor polynomial.
+// The output is an array containing two elements:
+// The first is an array representing the quotient polynomial.
+// The second is the modified array A, which is now the remainder polynomial.
+// The function repeatedly subtracts multiples of the divisor
+// from the dividend to eliminate the highest degree terms.
+// Note: The input array A is modified directly during the operation.
 function divide(A, B)
 {
     let i = deg(A);

@@ -35,6 +35,10 @@ function add(cs, ds)
     return sum;
 }
 
+let a1 = [7, -1, 2, 4];
+let a2 = [3, 0, 8, 0, 5];
+console.log(add(a1, a2));
+
 // This function subtracts two arrays (polynomials): cs, and ds.
 // It returns a new array containing the element-wise difference of the two inputs.
 // It iterates through both arrays, subtracting corresponding elements together.
@@ -60,6 +64,10 @@ function subtract(cs, ds)
     return difference;
 }
 
+let s1 = [7, -1, 2, 4];
+let s2 = [3, 0, 8, 0, 5];
+console.log(subtract(s1, s2));
+
 // This function multiplies two polynomials.
 // Each element in the first polynomial is multiplied by
 // every element in the second polynomial. The resulting polynomial
@@ -83,35 +91,43 @@ function multiply(mr, md)
     return pr;
 }
 
+let p1 = [7, -1, 2, 4];
+let p2 = [3, 0, 8, 0, 5];
+console.log(multiply(p1, p2));
+
 // This function performs polynomial long division.
-// A: An array of coefficients representing the dividend polynomial.
-// B: An array of coefficients representing the divisor polynomial.
-// The output is an array containing two elements:
+// A: The dividend polynomial as an array of coefficients.
+// B: The divisor polynomial as an array of coefficients.
+// Output: An array containing two elements:
 // The first is an array representing the quotient polynomial.
 // The second is the modified array A, which is now the remainder polynomial.
 // The function repeatedly subtracts multiples of the divisor
 // from the dividend to eliminate the highest degree terms.
-// Note: The input array A is modified directly during the operation.
+// The input array A is modified directly during the operation.
 function divide(A, B)
 {
     let i = deg(A);
     let j = deg(B);
-    let Q = Array(i - j + 1).fill(0);
-    while (i >= j)
+    if (i < j)
     {
-        Q[i - j] = A[i] / B[j];
-        for (let k = j; k >= 0; k--)
+        let Q = [0];
+    }
+    else
+    {
+        let Q = Array(i - j + 1).fill(0);
+        while (i >= j)
         {
-            A[k + i - j] -= B[k] * Q[i - j];
+            Q[i - j] = A[i] / B[j];
+            for (let k = j; k >= 0; k--)
+            {
+                A[k + i - j] -= B[k] * Q[i - j];
+            }
+            i--;
         }
-    i--;
     }
     return [Q, A];
 }
 
-let mr = [7, -1, 2, 4];
-let md = [3, 0, 8, 0, 5];
-console.log(add(mr, md));
-console.log(subtract(mr, md));
-console.log(multiply(mr, md));
-console.log(divide(mr, md)); // Returns [quotient, remainder (R)]
+let d1 = [1, 12];
+let d2 = [1, 3];
+console.log(divide(d1, d2)); // Returns [quotient, remainder (R)]

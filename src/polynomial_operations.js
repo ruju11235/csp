@@ -2,7 +2,8 @@
 This program has a set of functions to perform basic polynomial arithmetic operations.
 Each polynomial is represented as an array of coefficients,
 where the index corresponds to the power of the variable.
-There are functions for calculating the degree of a polynomial, addition, subtraction, multiplication, and division of polynomials.
+There are functions for calculating the degree of a polynomial,
+addition, subtraction, multiplication, and division of polynomials.
 */
 
 // Calculates the degree of a polynomial.
@@ -35,8 +36,8 @@ function add(cs, ds)
     return sum;
 }
 
-let a1 = [7, -1, 2, 4];
-let a2 = [3, 0, 8, 0, 5];
+let a1 = [1, 2, 3, 4];
+let a2 = [1, 2, 3, 4, 5];
 console.log(add(a1, a2));
 
 // This function subtracts two arrays (polynomials): cs, and ds.
@@ -91,43 +92,62 @@ function multiply(mr, md)
     return pr;
 }
 
-let p1 = [7, -1, 2, 4];
-let p2 = [3, 0, 8, 0, 5];
-console.log(multiply(p1, p2));
+let multiplicand = [7, -1, 2, 4];
+let multiplier = [3, 0, 8, 0, 5];
+console.log(multiply(multiplicand, multiplier));
+
+// After using the "divide" function,
+// the remainder array will contain extra zeros.
+// This leads to the degree of that array being too large.
+// This function removes all extra (trailing) zeros.
+function removeTrailingZeros(a)
+{
+    for (let k = a.length - 1; k >= 0; k--)
+    {
+        if (a[k] === 0)
+        {
+            a.pop();
+        }
+        else
+        {
+            break;
+        }
+    }
+    return a;
+}
 
 // This function performs polynomial long division.
 // A: The dividend polynomial as an array of coefficients.
 // B: The divisor polynomial as an array of coefficients.
-// Output: An array containing two elements:
+// Returns: An array containing two elements:
 // The first is an array representing the quotient polynomial.
-// The second is the modified array A, which is now the remainder polynomial.
+// The second is an array R, the remainder polynomial.
 // The function repeatedly subtracts multiples of the divisor
 // from the dividend to eliminate the highest degree terms.
-// The input array A is modified directly during the operation.
+// Returns R as an empty array if the remainder is 0.
 function divide(A, B)
 {
-    let i = deg(A);
+    let R = A.slice(); // Make a copy of A
+    let i = deg(R);
     let j = deg(B);
-    if (i < j)
+    let Q = [0];
+    if (i >= j)
     {
-        let Q = [0];
-    }
-    else
-    {
-        let Q = Array(i - j + 1).fill(0);
+        Q = Array(i - j + 1).fill(0);
         while (i >= j)
         {
-            Q[i - j] = A[i] / B[j];
+            Q[i - j] = R[i] / B[j];
             for (let k = j; k >= 0; k--)
             {
-                A[k + i - j] -= B[k] * Q[i - j];
+                R[k + i - j] -= B[k] * Q[i - j];
             }
             i--;
         }
     }
-    return [Q, A];
+    removeTrailingZeros(R);
+    return [Q, R];
 }
 
-let d1 = [1, 12];
-let d2 = [1, 3];
-console.log(divide(d1, d2)); // Returns [quotient, remainder (R)]
+let dividend = [-1, 1, 1];
+let divisor = [-1, 1];
+console.log(divide(dividend, divisor)); // Returns [quotient, remainder (R)]

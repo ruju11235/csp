@@ -4,14 +4,44 @@ Each polynomial is represented as an array of coefficients,
 where the index corresponds to the power of the variable.
 There are functions for calculating the degree of a polynomial,
 addition, subtraction, multiplication, and division of polynomials.
+
+Input arrays should represent valid polynomials (at least one non-zero coefficient).
+Empty arrays ([]) are not considered valid inputs and may lead to unexpected results.
+Coefficients (elements) must be real numbers.
+The division function must not be used with a zero polynomial divisor.
 */
 
 // Calculates the degree of a polynomial.
 // Input: An array "cs" representing the coefficients.
 // Output: An integer representing the degree of the polynomial.
+// 
 function deg(cs)
 {
+    if (cs.length === 0)
+    {
+        throw new Error("Invalid polynomial: array is empty.");
+    }
     return cs.length - 1;
+}
+
+// After using some of the functions,
+// some arrays will contain extra zeros.
+// This leads to the degree of that array being too large.
+// This function removes all extra (trailing) zeros.
+function removeTrailingZeros(a)
+{
+    for (let k = a.length - 1; k >= 0; k--)
+    {
+        if (a[k] === 0)
+        {
+            a.pop();
+        }
+        else
+        {
+            break;
+        }
+    }
+    return a;
 }
 
 // This function adds two arrays (polynomials): cs, and ds.
@@ -33,7 +63,7 @@ function add(cs, ds)
     {
         sum.push(sa[i]);
     }
-    return sum;
+    return removeTrailingZeros(sum);
 }
 
 let a1 = [1, 2, 3, 4];
@@ -62,7 +92,7 @@ function subtract(cs, ds)
     {
         difference.push(sa[i] * sign);
     }
-    return difference;
+    return removeTrailingZeros(difference);
 }
 
 let s1 = [7, -1, 2, 4];
@@ -89,32 +119,12 @@ function multiply(mr, md)
             pr[i + j] += mr[i] * md[j];
         }
     }
-    return pr;
+    return removeTrailingZeros(pr);
 }
 
 let multiplicand = [7, -1, 2, 4];
 let multiplier = [3, 0, 8, 0, 5];
 console.log(multiply(multiplicand, multiplier));
-
-// After using the "divide" function,
-// the remainder array will contain extra zeros.
-// This leads to the degree of that array being too large.
-// This function removes all extra (trailing) zeros.
-function removeTrailingZeros(a)
-{
-    for (let k = a.length - 1; k >= 0; k--)
-    {
-        if (a[k] === 0)
-        {
-            a.pop();
-        }
-        else
-        {
-            break;
-        }
-    }
-    return a;
-}
 
 // This function performs polynomial long division.
 // A: The dividend polynomial as an array of coefficients.
@@ -145,7 +155,7 @@ function divide(A, B)
         }
     }
     removeTrailingZeros(R);
-    return [Q, R];
+    return [removeTrailingZeros(Q), R];
 }
 
 let dividend = [-1, 1, 1];
